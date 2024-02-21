@@ -5,16 +5,17 @@ import { SlCalender } from "react-icons/sl";
 import { MdEventSeat } from "react-icons/md";
 import { HiSpeakerphone } from "react-icons/hi";
 import { TiLocationOutline } from "react-icons/ti";
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import EventCard from "./EventCard";
-import { AuthContext } from "../../Providers/AuthProvider";
+
 import Footer from "../Shared/Footer";
 
 
 
 const Home = () => {
 
-    const {chamon} = useContext(AuthContext)
+    const [speakers, setSpeakers] = useState()
+    const [teams, setTeams] = useState()
     const [events, setEvents] = useState()
 
     useEffect(() => {
@@ -25,11 +26,22 @@ const Home = () => {
 
     }, [])
 
-    console.log(chamon)
 
 
 
+    useEffect(() => {
+        fetch("./../../../public/TallentedSpeader.json")
+            .then(res => res.json())
+            .then(data => setSpeakers(data))
+    }, [])
+    useEffect(() => {
+        fetch("./../../../public/Team.json")
+            .then(res => res.json())
+            .then(data => setTeams(data))
+    }, [])
 
+
+    console.log(speakers);
 
 
 
@@ -70,11 +82,49 @@ const Home = () => {
                 </div>
                 <div className="max-w-7xl mx-auto gap-10 grid grid-cols-3">
                     {
-                        events?.map(event =><EventCard value={event} key={event.id}></EventCard>)
+                        events?.map(event => <EventCard value={event} key={event.id}></EventCard>)
                     }
                 </div>
 
             </div>
+
+
+            <div className="max-w-7xl mx-auto space-y-10 py-20 ">
+                <h1 className="text-4xl font-bold text-black text-center">Our Best Speaker</h1>
+                <div className="grid grid-cols-3 gap-6">
+                    {
+
+                        speakers?.map(speaker => <div
+                            key={speaker.id}
+                            className="flex flex-col justify-center items-center ">
+                            <img className="w-full rounded-md h-[300px] " src={speaker.image} alt="" />
+                            <h1 className="text-2xl font-bold py-4">{speaker.title}</h1>
+
+                        </div>)
+
+                    }
+                </div>
+            </div>
+
+            <div className="max-w-7xl mx-auto space-y-10 py-20 ">
+                <h1 className="text-4xl font-bold text-black text-center">Our Team</h1>
+                <div className="grid grid-cols-3 gap-6">
+                    {
+
+                        teams?.map(team => <div
+                            key={team.id}
+                            className="relative ">
+                            <img className="w-full rounded-md h-[300px] " src={team.image} alt="" />
+                            <h1 className="absolute rounded-sm text-white pl-4 pr-28 bg-[#CE1446] text-2xl font-bold py-2 bottom-6 text-start">{team.title}</h1>
+
+                        </div>)
+
+                    }
+                </div>
+            </div>
+
+
+
 
             <Footer></Footer>
 

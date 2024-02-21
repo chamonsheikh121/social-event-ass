@@ -1,8 +1,6 @@
 import Navbar from "../Navbar";
 import "./Login.css"
 import { Link } from "react-router-dom";
-import { FcGoogle } from "react-icons/fc";
-import { GrGithub } from "react-icons/gr";
 import { useContext } from "react";
 import { AuthContext } from "../../Providers/AuthProvider";
 import ExtraLoing from "../Shared/ExtraLoing";

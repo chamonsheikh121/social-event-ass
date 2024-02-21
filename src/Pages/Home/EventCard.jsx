@@ -6,7 +6,7 @@ const EventCard = ({ value }) => {
 
     const {image, title, price} = value
 
-    console.log(value)
+
 
     return (
         <div className="flex justify-between bg-slate-100 flex-col rounded-md">
