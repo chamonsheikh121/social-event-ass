@@ -104,6 +104,22 @@ const Navbar = () => {
                             contact
                         </NavLink>
                     </li>
+                    <li className="one">
+                        <NavLink
+                            to="/dashboard"
+                            style={({ isActive, isTransitioning }) => {
+                                return {
+                                    fontWeight: isActive ? "bold" : "",
+                                    color: isActive ? "red" : "",
+                                    border: isActive ? "1px solid red" : "",
+                                    padding: isActive ? "3px 10px" : "",
+                                    viewTransitionName: isTransitioning ? "slide" : "",
+                                };
+                            }}
+                        >
+                            Dashboard
+                        </NavLink>
+                    </li>
 
 
 

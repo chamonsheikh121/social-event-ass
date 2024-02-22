@@ -20,10 +20,26 @@ const EventDetails = () => {
         setMatchedData(data)
     }, [])
 
-
-    console.log(matchedData);
-
     const { image, title, description, location, price, duration, service_details_description } = matchedData
+
+    const handleConform=()=>{
+
+        const localStorageArray =[]
+        localStorageArray.push(matchedData)
+        console.log(localStorageArray)
+
+        const beforeItems = JSON.parse(localStorage.getItem('data'))
+        
+        console.log(beforeItems);
+        
+        if(!beforeItems){
+            localStorage.setItem('data', JSON.stringify(localStorageArray))
+        }
+        else{
+            beforeItems.push(matchedData)
+            localStorage.setItem('data', JSON.stringify(beforeItems))
+        }   
+    }
 
 
 
@@ -49,7 +65,7 @@ const EventDetails = () => {
 
                 <div className="flex justify-between items-center">
                     <Link to="/"><button className="oneButton bg-[#CE1446] px-10 py-1 text-white flex justify-center items-center gap-4"><IoArrowBackSharp></IoArrowBackSharp> <span>Back</span></button></Link>
-                    <button className="oneButton bg-[#CE1446] text-xl px-10 py-1 text-white"> <span>Conform</span></button>
+                    <button onClick={handleConform} className="oneButton bg-[#CE1446] text-xl px-10 py-1 text-white"> <span >Conform</span></button>
                 </div>
             </div>
 

@@ -12,12 +12,12 @@ const ExtraLoing = () => {
     const {signInGoogle} =useContext(AuthContext)
 
     const handleGoogleSignIn =()=>{
-        signInGoogle()
-        .then((result) => {
-            console.log(result.user);
-        }).catch((err) => {
-            console.log(err);
-        });
+       signInGoogle()
+       .then((result) => {
+        console.log(result.user);
+       }).catch((err) => {
+        console.log(err);
+       });
     }
 
 
