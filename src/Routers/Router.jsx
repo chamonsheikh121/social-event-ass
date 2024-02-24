@@ -7,23 +7,25 @@ import Registration from "../Pages/Registration/Registration";
 import Contact from "../Pages/Contact/Contact";
 import EventDetails from "../Pages/EventDetails/EventDetails";
 import Dashboard from "../Pages/Dashboard/Dashboard";
+import DetailsPrivate from "../PrivateRouter/DetailsPrivate";
+import DashboardPrivate from "../PrivateRouter/DashboardPrivate";
 
 
 const router = createBrowserRouter([
     {
-        path:"/",
+        path: "/",
         element: <div>
             <Root></Root>
             <Outlet></Outlet>
         </div>,
         errorElement: <ErrorPage></ErrorPage>,
-        children:[
+        children: [
             {
                 path: "/",
                 element: <Home></Home>
             },
             {
-                path:"/login",
+                path: "/login",
                 element: <Login></Login>
             },
             {
@@ -35,18 +37,18 @@ const router = createBrowserRouter([
                 element: <Contact></Contact>
             },
             {
-                path:`/details/:id`,
-                element:<EventDetails></EventDetails>,
-                loader: ()=>fetch("./../../public/Events.json")
-                
+                path: `/details/:id`,
+                element: <DetailsPrivate><EventDetails></EventDetails></DetailsPrivate>,
+                loader: () => fetch("./../../public/Events.json")
+
             },
             {
-                path:"/dashboard",
-                element:<Dashboard></Dashboard>,
+                path: "/dashboard",
+                element: <DashboardPrivate><Dashboard></Dashboard></DashboardPrivate>,
                 // loader:()=>fetch('../../public/Events.json')
             }
         ]
-            
+
     }
 ])
 

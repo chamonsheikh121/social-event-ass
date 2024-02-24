@@ -94,13 +94,16 @@ const Home = () => {
                 <div className="grid grid-cols-3 gap-6">
                     {
 
-                        speakers?.map(speaker => <div
+                        speakers?.map(speaker =>{ 
+                        console.log(speaker.id);
+                        
+                        return <div
                             key={speaker.id}
                             className="flex flex-col justify-center items-center ">
                             <img className="w-full rounded-md h-[300px] " src={speaker.image} alt="" />
                             <h1 className="text-2xl font-bold py-4">{speaker.title}</h1>
 
-                        </div>)
+                        </div>})
 
                     }
                 </div>

@@ -2,10 +2,12 @@ import { PropTypes } from "prop-types";
 import { Link } from "react-router-dom";
 
 
+
 const EventCard = ({ value }) => {
 
     const {image, title, price} = value
-
+    
+    
 
 
     return (
@@ -22,7 +24,7 @@ const EventCard = ({ value }) => {
             </div>
             <div className="flex justify-between items-center p-4">
                 <p className="  py-2 text-black text-xl">{price}</p>
-                <Link to={`/details/${value.id}`}><button className="bg-[#CE1446] oneButton px-10 py-2 text-white text-xl">Details  </button></Link>
+                <Link  to={`/details/${value.id}`}><button className="bg-[#CE1446] oneButton px-10 py-2 text-white text-xl">Details  </button></Link>
             </div>
 
         </div>

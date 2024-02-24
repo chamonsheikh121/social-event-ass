@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useLoaderData, useParams } from "react-router-dom";
 import { IoArrowBackSharp } from "react-icons/io5";
 import { Link } from "react-router-dom";
+import Swal from "sweetalert2";
 
 
 const EventDetails = () => {
@@ -38,7 +39,14 @@ const EventDetails = () => {
         else{
             beforeItems.push(matchedData)
             localStorage.setItem('data', JSON.stringify(beforeItems))
-        }   
+        }
+
+        
+            Swal.fire({
+                icon: "success",
+                title: "Event Added to the Dashboard successfully"
+              });
+        
     }
 
 

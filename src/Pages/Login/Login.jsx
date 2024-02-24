@@ -1,15 +1,19 @@
 import Navbar from "../Navbar";
 import "./Login.css"
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "../../Providers/AuthProvider";
 import ExtraLoing from "../Shared/ExtraLoing";
+import Swal from "sweetalert2";
 
-Navbar
 
 const Login = () => {
 
     const {loginWEP} = useContext(AuthContext);
+    const location = useLocation()
+    console.log(location);
+
+    const navigate =useNavigate()
 
 
     const handleLoginWEP =(e)=>{
@@ -20,6 +24,11 @@ const Login = () => {
         loginWEP(email, password)
         .then((result) => {
             console.log(result.user);
+            navigate(location.state ? location.state:"/")
+            Swal.fire({
+                icon: "success",
+                title: "Logged in successfully"
+              });
             
         }).catch((err) => {
             console.log(err);

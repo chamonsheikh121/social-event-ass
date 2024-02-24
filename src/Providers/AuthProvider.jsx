@@ -1,54 +1,62 @@
 import { createContext, useEffect, useState } from "react";
 import PropTypes from "prop-types"
-import { getAuth, createUserWithEmailAndPassword,signInWithEmailAndPassword,GoogleAuthProvider, signInWithPopup, onAuthStateChanged, signOut   } from "firebase/auth";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, onAuthStateChanged, signOut } from "firebase/auth";
 import app from "../Services/Firebase.config";
 
 
 export const AuthContext = createContext(null)
-    const auth = getAuth(app)
-    const provider = new GoogleAuthProvider();
+const auth = getAuth(app)
+const provider = new GoogleAuthProvider();
 
 
-const AuthProvider = ({children}) => {
+
+const AuthProvider = ({ children }) => {
 
 
-    const [user, setUser] =useState(null)
+    const [user, setUser] = useState(null)
+    const [loading, setLoading] =useState(true)
 
 
-    const createUserWEP =(email, password)=>{
-        createUserWithEmailAndPassword(auth, email, password)
+    const createUserWEP = (email, password) => {
+        setLoading(true)
+        return createUserWithEmailAndPassword(auth, email, password)
     }
-    const loginWEP =(email, password)=>{
-        signInWithEmailAndPassword (auth, email, password)
-    }
-
-    const signInGoogle=()=>{
-        signInWithPopup(auth, provider)
-    }
-
-    const logOut=()=>{
-        signOut(auth)
+    const loginWEP = (email, password) => {
+        setLoading(true)
+        return signInWithEmailAndPassword(auth, email, password)
     }
 
+    const signInGoogle = () => {
+        setLoading(true)
+        return signInWithPopup(auth, provider)
+    }
 
-    useEffect(()=>{
-        onAuthStateChanged(auth, currentUser=>{
-            console.log("observing current user", currentUser);
+    const logOut = () => {
+        setLoading(true)
+        return signOut(auth)
+    }
+
+
+    useEffect(() => {
+        onAuthStateChanged(auth, currentUser => {
+            console.log(currentUser);
             setUser(currentUser)
+            setLoading(false)
         })
-    },[])
+    }, [])
 
     console.log(user);
 
-   
 
-   const info =
+
+    const info =
     {
         createUserWEP,
         loginWEP,
         signInGoogle,
         user,
-        logOut
+        logOut,
+        loading
     }
 
     return (
@@ -56,7 +64,7 @@ const AuthProvider = ({children}) => {
         <AuthContext.Provider value={info}>
             {children}
         </AuthContext.Provider>
-        
+
     );
 };
 

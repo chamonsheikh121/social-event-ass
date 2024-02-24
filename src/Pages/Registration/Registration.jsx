@@ -1,9 +1,7 @@
 import Navbar from "../Navbar";
 import video from "./../../assets/background.mp4"
 import { Link } from "react-router-dom";
-import { FcGoogle } from "react-icons/fc";
-import { GrGithub } from "react-icons/gr";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { AuthContext } from "../../Providers/AuthProvider";
 import ExtraLoing from "../Shared/ExtraLoing";
 
@@ -11,22 +9,33 @@ import ExtraLoing from "../Shared/ExtraLoing";
 
 const Registration = () => {
 
-    const {createUserWEP} =useContext(AuthContext)
+    const {createUserWEP} = useContext(AuthContext)
+
+    const [success, setSuccess] =useState(false)
 
     const handleLoginWEP = (e) => {
         e.preventDefault()
 
-        const form = new FormData(e.currentTarget);
+        let form = new FormData(e.currentTarget);
         const email = form.get("email");
         const password = form.get("password");
         console.log(email, password)
-        createUserWEP(email, password)
-        .then((result) => {
+        if(email && password){
+            createUserWEP(email, password)
+            .then((result) => {
+
+            setSuccess(true)
             console.log(result.user)
-        })
-        .catch((err) => {
-            console.log(err)
-        });
+            
+            }).catch((err) => {
+
+            console.log(err.message)
+
+            });
+        }
+        else{
+            console.log("Null value ")
+        }
     }
 
 
@@ -53,6 +62,7 @@ const Registration = () => {
                                     <input className="px-5 text-[20px] focus:outline-none py-1 w-full focus:bg-black border rounded-md" placeholder="Enter your email" name="email" type="email" />
                                     <input className="px-5 text-[20px] focus:outline-none py-1 w-full focus:bg-black border rounded-md" placeholder="Password" name="password" type="password" />
                                     <button className="oneButton bg-[#CB1546] font-bold py-2 text-white w-full">Registration</button>
+                                    <p>{success? "User created successfully" : ""}</p>
                                 </form>
                                 <p className="text-end py-2 text-gray-300">Already have an account?<Link className="underline pl-2 text-[#f38aa6]" to="/login">login</Link></p>
                             </div>

@@ -1,8 +1,9 @@
 import logo from "./../assets/logo.png"
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 import { Link } from "react-router-dom";
 import "./Navbar.css"
 import { useContext } from "react";
+import Swal from "sweetalert2";
 import { AuthContext } from "../Providers/AuthProvider";
 
 const Navbar = () => {
@@ -11,12 +12,22 @@ const Navbar = () => {
 
     const handleLogOut=()=>{
         logOut()
-        .then((result) => {
-            console.log(result.user);
+        .then(() => {
+            Swal.fire({
+                icon: "success",
+                title: "You have LoggedOut"
+              });
             
         }).catch((err) => {
             console.log(err);
         });
+    }
+
+
+    const location =useLocation()
+    let color ='[#363536]';
+    if(location.pathname == '/registration'){
+        color ="white"
     }
 
 
@@ -27,7 +38,7 @@ const Navbar = () => {
 
             <div className="w-48"><img className="w-full h-full " src={logo} alt="" /></div>
             <div className="flex justify-between gap-10 items-center">
-                <ul className="flex justify-center items-center text-[#363536] gap-10">
+                <ul className={`flex justify-center items-center text-${color} gap-10`}>
                     <li className="one">
                         <NavLink
                             to="/"
@@ -44,34 +55,8 @@ const Navbar = () => {
                             HOME
                         </NavLink>
                     </li>
-                    <li className="event  relative flex justify-center flex-col items-center">
-                        <NavLink
-                            to="#"
-                            className="one"
-                            style={({ isActive, isTransitioning }) => {
-                                return {
-                                    fontWeight: isActive ? "bold" : "",
-                                    color: isActive ? "red" : "",
-                                    border: isActive ? "1px solid red" : "",
-                                    padding: isActive ? "3px 10px" : "",
-                                    viewTransitionName: isTransitioning ? "slide" : "",
-                                };
-                            }}
-                        >
-                            EVENTS
-                        </NavLink>
-                        <div className="events-container absolute top-12 ">
-                            <ul className="events text-[#404041] space-y-2">
-                                <li>WEDDING</li>
-                                <li>BIRTH DAY PARTIES</li>
-                                <li>ANNIVERSARIES</li>
-                                <li>ENGAGEMENT PARTIES</li>
-                                <li>RETIREMENT PARTIES</li>
-                                <li>BABY SHOWER</li>
-                            </ul>
-                        </div>
-                    </li>
-                    <li className="one">
+                   
+                    {/* <li className="one">
                         <NavLink
                             to="/registration"
                             style={({ isActive, isTransitioning }) => {
@@ -86,7 +71,7 @@ const Navbar = () => {
                         >
                             registration
                         </NavLink>
-                    </li>
+                    </li> */}
 
                     <li className="one">
                         <NavLink
@@ -104,7 +89,8 @@ const Navbar = () => {
                             contact
                         </NavLink>
                     </li>
-                    <li className="one">
+                    {
+                        user && <li className="one">
                         <NavLink
                             to="/dashboard"
                             style={({ isActive, isTransitioning }) => {
@@ -120,6 +106,7 @@ const Navbar = () => {
                             Dashboard
                         </NavLink>
                     </li>
+                    }
 
 
 
@@ -127,7 +114,7 @@ const Navbar = () => {
                 {
                     user ? <div className="flex gap-2 justify-between items-center">
 
-                        <img src={user.photo_URL} alt="" />
+                        <img className="w-[40px] rounded-full" src={user.photoURL} alt="" />
 
                         <div>
                         <h1 className="font-bold">{user?.displayName}</h1>
