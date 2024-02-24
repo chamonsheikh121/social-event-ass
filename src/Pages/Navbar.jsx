@@ -10,24 +10,24 @@ const Navbar = () => {
 
     const { user, logOut } = useContext(AuthContext)
 
-    const handleLogOut=()=>{
+    const handleLogOut = () => {
         logOut()
-        .then(() => {
-            Swal.fire({
-                icon: "success",
-                title: "You have LoggedOut"
-              });
-            
-        }).catch((err) => {
-            console.log(err);
-        });
+            .then(() => {
+                Swal.fire({
+                    icon: "success",
+                    title: "You have LoggedOut"
+                });
+
+            }).catch((err) => {
+                console.log(err);
+            });
     }
 
 
-    const location =useLocation()
-    let color ='[#363536]';
-    if(location.pathname == '/registration'){
-        color ="white"
+    const location = useLocation()
+    let color = '[#363536]';
+    if (location.pathname == '/registration') {
+        color = "white"
     }
 
 
@@ -38,7 +38,7 @@ const Navbar = () => {
 
             <div className="w-48"><img className="w-full h-full " src={logo} alt="" /></div>
             <div className="flex justify-between gap-10 items-center">
-                <ul className={`flex justify-center items-center text-${color} gap-10`}>
+                <ul className={`flex uppercase justify-center items-center text-${color} gap-10`}>
                     <li className="one">
                         <NavLink
                             to="/"
@@ -55,23 +55,6 @@ const Navbar = () => {
                             HOME
                         </NavLink>
                     </li>
-                   
-                    {/* <li className="one">
-                        <NavLink
-                            to="/registration"
-                            style={({ isActive, isTransitioning }) => {
-                                return {
-                                    fontWeight: isActive ? "bold" : "",
-                                    color: isActive ? "red" : "",
-                                    border: isActive ? "1px solid red" : "",
-                                    padding: isActive ? "3px 10px" : "",
-                                    viewTransitionName: isTransitioning ? "slide" : "",
-                                };
-                            }}
-                        >
-                            registration
-                        </NavLink>
-                    </li> */}
 
                     <li className="one">
                         <NavLink
@@ -89,10 +72,11 @@ const Navbar = () => {
                             contact
                         </NavLink>
                     </li>
+
                     {
                         user && <li className="one">
                         <NavLink
-                            to="/dashboard"
+                            to="/profile"
                             style={({ isActive, isTransitioning }) => {
                                 return {
                                     fontWeight: isActive ? "bold" : "",
@@ -103,9 +87,28 @@ const Navbar = () => {
                                 };
                             }}
                         >
-                            Dashboard
+                            PROFILE
                         </NavLink>
                     </li>
+
+                    }
+                    {
+                        user && <li className="one">
+                            <NavLink
+                                to="/dashboard"
+                                style={({ isActive, isTransitioning }) => {
+                                    return {
+                                        fontWeight: isActive ? "bold" : "",
+                                        color: isActive ? "red" : "",
+                                        border: isActive ? "1px solid red" : "",
+                                        padding: isActive ? "3px 10px" : "",
+                                        viewTransitionName: isTransitioning ? "slide" : "",
+                                    };
+                                }}
+                            >
+                                Dashboard
+                            </NavLink>
+                        </li>
                     }
 
 
@@ -117,8 +120,8 @@ const Navbar = () => {
                         <img className="w-[40px] rounded-full" src={user.photoURL} alt="" />
 
                         <div>
-                        <h1 className="font-bold">{user?.displayName}</h1>
-                        <p className="font-semibold">{user?.email}</p>
+                            <h1 className="font-bold">{user?.displayName}</h1>
+                            <p className="font-semibold">{user?.email}</p>
                         </div>
 
                         <div>
@@ -131,7 +134,7 @@ const Navbar = () => {
                     </div> : <Link to="/login"><button className="bg-[#CB1546] px-12 py-2 rounded-md text-white oneButton">Login</button></Link>
                 }
 
-                
+
             </div>
 
         </div>

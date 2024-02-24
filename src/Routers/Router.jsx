@@ -9,6 +9,8 @@ import EventDetails from "../Pages/EventDetails/EventDetails";
 import Dashboard from "../Pages/Dashboard/Dashboard";
 import DetailsPrivate from "../PrivateRouter/DetailsPrivate";
 import DashboardPrivate from "../PrivateRouter/DashboardPrivate";
+import { element } from "prop-types";
+import Profile from "../Pages/ProfilePage/Profile";
 
 
 const router = createBrowserRouter([
@@ -46,6 +48,10 @@ const router = createBrowserRouter([
                 path: "/dashboard",
                 element: <DashboardPrivate><Dashboard></Dashboard></DashboardPrivate>,
                 // loader:()=>fetch('../../public/Events.json')
+            },
+            {
+                path:"/profile",
+                element:<Profile></Profile>
             }
         ]
 
